@@ -43,18 +43,19 @@ Include:
   - What aspects took the most time?
 
 Tasks:
-	- scrolling in grid
-	- reorder axes
-	- coloring of spaghetti lines: lumens by value selected, color by type
-	- click legend to filter type
-	- remove or keep the three buttons keep, exclude, reset
-	- add unit to axes
-	- search box
-	- text box of occupation name in paral. coord.
-	- click line to highlight data row
-	- hover in grid to highlight line
+- scrolling in grid
+- reorder axes
+- coloring of spaghetti lines: lumens by value selected, color by type
+- click legend to filter type
+- remove or keep the three buttons keep, exclude, reset
+- add unit to axes
+- search box
+- text box of occupation name in paral. coord.
+- click line to highlight data row
+- hover in grid to highlight line
+
 Functionality by Members:
-	-Xiaojing:
-		* legend of type 
-	-Rachel:
-		* order data alphabetically
+-Xiaojing:
+	- legend of type 
+-Rachel:
+	- order data alphabetically
