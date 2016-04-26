@@ -24,7 +24,7 @@ d3.csv('Prestige2.csv', function(data) {
 
   var grid = d3.divgrid();
   d3.select("#grid")
-      .datum(data.slice(0,10))
+      .datum(data.slice(0,10)) 
       .call(grid)
       .selectAll(".row")
       .on({

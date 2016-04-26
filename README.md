@@ -55,7 +55,10 @@ Tasks:
 - hover in grid to highlight line
 
 Functionality by Members:
--Xiaojing:
+- Xiaojing:
 	- legend of type 
--Rachel:
+	- scrolling in grid
+- Rachel:
 	- order data alphabetically
+	- add unit to axes
+	- color and lumens
