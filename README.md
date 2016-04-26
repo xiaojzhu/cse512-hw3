@@ -53,6 +53,7 @@ Tasks:
 - text box of occupation name in paral. coord.
 - click line to highlight data row
 - hover in grid to highlight line
+
 Functionality by Members:
 -Xiaojing:
 	- legend of type 
