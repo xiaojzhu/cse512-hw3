@@ -1,7 +1,7 @@
    var graph;
     var dataset;
     
-    d3.csv('Prestige.csv', function(data) {
+    d3.csv('Prestige2.csv', function(data) {
     dataset = data;
       graph = d3.parcoords()('#wrapper')
                 .data(data)
