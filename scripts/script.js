@@ -106,6 +106,7 @@ function callUpdate(data) {
          graph.data(data).brush().render().updateAxes();       
 }
 
+
 //for lengend of occupation types
   $(function() {
     var types =
