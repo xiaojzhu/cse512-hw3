@@ -33,9 +33,37 @@
   opacity: 0.25;
 }
 
+#head {
+  font-size: 13px;
+  height: 50px;
+  width: 100%;
+  margin: 0 auto;
+  background: rgba(0,0,0,0.12);
+}
+
+#legend { 
+  float: left;
+  clear: left;
+  margin: 0 200px 0 12px;
+  font-size: 11px;
+  line-height: 1.6em;
+}
+#legend .item {
+  float: left;
+  margin-right: 10px;
+}
+#legend .color {
+  height: 10px;
+  width: 10px;
+  opacity: 0.7;
+}
+#legend div {
+  display: inline-block;
+  margin: 0 2px;
+}
 
 body {
-    background-color: #26292E;
+    background-color:  #fff ;
     font-family: 'droid_sans', sans-serif;
     font-size: 16px;
     font-weight: normal;
@@ -44,7 +72,7 @@ body {
 }
 
 text {
-  fill: white;
+  fill: black;
 }
 
 
@@ -67,7 +95,7 @@ text {
 #title {
   font-size: 24px;
   font-weight: 100;
-  color: white;
+  color: black;
 }
 #title div.large, #title span.large {
   font-size: 36px;
@@ -108,9 +136,9 @@ button:hover {
 
 
 /* data table styles */
-#grid { height: 198px; color:white; clear: both; position:relative; top: 60px; left: 15px }
+#grid { height: 198px; color:black; clear: both; position:relative; top: 60px; left: 15px }
 .row, .header { clear: left; font-size: 14px; line-height: 18px; height: 20px; margin: 5px; width:1120px }
-.row:hover {text-shadow: -1px 1px 8px #ffc, 1px -1px 8px #fff;}
+.row:hover {text-shadow: -1px 1px 8px yellow, 1px -1px 8px yellow;}
 .row:nth-child(odd) { background: rgba(0,0,0,0.05); }
 .header { font-weight: bold; }
 .cell { float: left; overflow: hidden; white-space: nowrap; width: 120px; height: 22px; }

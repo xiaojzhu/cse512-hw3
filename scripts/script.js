@@ -105,3 +105,18 @@ function zscore(col) {
 function callUpdate(data) {
          graph.data(data).brush().render().updateAxes();       
 }
+
+//for lengend of occupation types
+  $(function() {
+    var types =
+      ["Professional","Blue Collar","White Collar"];
+    var Typecolors = {
+      "Professional" : '#1b9e77',
+      "Blue Collar" : '#1f77b4',
+      "White Collar" : '#ff9896'}
+       _(types).each(function(group) {
+      $('#legend').append("<div class='item'><div class='color' style='background: " + Typecolors[group] + "';></div><div class='key'>" + group + "</div></div>");
+       });
+  });
+
+
