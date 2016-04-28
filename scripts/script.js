@@ -2,6 +2,8 @@ var graph;
 var dataset;
 var color_set = d3.scale.linear()
   .range(["#3182bd", "#f33"]);
+var color_set2 = d3.scale.ordinal()
+  .range(['#1b9e77','#1f77b4', '#ff9896']);
 
 d3.csv('Prestige2.csv', function(data) {
   dataset = data.sort(function(row1, row2){return d3.ascending(row1.name, row2.name)});
@@ -18,17 +20,19 @@ d3.csv('Prestige2.csv', function(data) {
             .reorderable()
             
 // add instruction text
-   var instructions = "-Drag around axis to begin brush. -Click axis to clear brush. -Click a label to color data based on axis values. -Hover on each line to highlight."
-  /*change_color("weight (lb)");*/
+ /*  var instructions = "-Drag around axis to begin brush. -Click axis to clear brush. -Click a label to color data based on axis values. -Hover on each line to highlight."
+  change_color("weight (lb)");
 
-/*  d3.select("#wrapper svg").append("text")
+  d3.select("#wrapper svg").append("text")
   .text(instructions)
   .attr("text-anchor", "middle")
   .attr("text-decoration", "overline")
-  .attr("transform", "translate(" + graph.width()/2 + "," + (graph.height()-5) + ")");;
-*/
-// set the initial coloring based on the 6rd column
+  .attr("transform", "translate(" + graph.width()/2 + "," + (graph.height()-5) + ")");;*/
+
+
+// set the initial coloring based on the 6rd column "type"
 update_colors(d3.keys(data[0])[5]);
+update_colors("type");
 
  // click label to activate coloring
 graph.svg.selectAll(".dimension")
@@ -108,10 +112,10 @@ d3.select("#wrapper svg")
      });
   
 
-var color_scale = d3.scale.linear()
+/*var color_scale = d3.scale.linear()
                     .domain([-2,-0.5,0.5,2])
                     .range(["#DE5E60", "steelblue", "steelblue", "#98df8a"])
-                    .interpolate(d3.interpolateLab);
+                    .interpolate(d3.interpolateLab);*/
 
 /*function change_color(dimension) {
   graph.svg.selectAll(".dimension")
@@ -167,11 +171,17 @@ function update_colors(dimension) {
 
   // change color of lines
   // set domain of color scale
-  var values = graph.data().map(function(d){return parseFloat(d[dimension])}); 
-  color_set.domain([d3.min(values), d3.max(values)]);
-  
-  // change colors for each line
-  graph.color(function(d){return color_set([d[dimension]])}).render();
+  if (dimension=="type"){
+    //this is the for the type colomn
+    color_set2.domain(["Professional", "Blue-collar" ,"White-collar"]);
+    graph.color(function(d){return color_set2([d[dimension]])}).render();
+  }
+  else{
+    var values = graph.data().map(function(d){return parseFloat(d[dimension])}); 
+    color_set.domain([d3.min(values), d3.max(values)]);
+      // change colors for each line
+    graph.color(function(d){return color_set([d[dimension]])}).render();
+  }
 };    
 
 
