@@ -21,12 +21,12 @@ d3.csv('Prestige2.csv', function(data) {
    var instructions = "-Drag around axis to begin brush. -Click axis to clear brush. -Click a label to color data based on axis values. -Hover on each line to highlight."
   /*change_color("weight (lb)");*/
 
-  d3.select("#wrapper svg").append("text")
+/*  d3.select("#wrapper svg").append("text")
   .text(instructions)
   .attr("text-anchor", "middle")
   .attr("text-decoration", "overline")
   .attr("transform", "translate(" + graph.width()/2 + "," + (graph.height()-5) + ")");;
-
+*/
 // set the initial coloring based on the 6rd column
 update_colors(d3.keys(data[0])[5]);
 
@@ -113,7 +113,7 @@ var color_scale = d3.scale.linear()
                     .range(["#DE5E60", "steelblue", "steelblue", "#98df8a"])
                     .interpolate(d3.interpolateLab);
 
-function change_color(dimension) {
+/*function change_color(dimension) {
   graph.svg.selectAll(".dimension")
     .style("font-weight", "normal")
     .filter(function(d) { return d == dimension; })
@@ -135,7 +135,7 @@ function zscore(col) {
   return function(d) {
     return (d-mean)/sigma;
   }; 
-};
+};*/
 
 function callUpdate(data) {
          graph.data(data).brush().render().updateAxes();       
@@ -178,10 +178,10 @@ function update_colors(dimension) {
 
 // Add highlight for every line on click
 function getCentroids(data){
-  // this function returns centroid points for data. I had to change the source
+  // “this function returns centroid points for data. I had to change the source
   // for parallelcoordinates and make compute_centroids public.
   // I assume this should be already somewhere in graph and I don't need to recalculate it
-  // but I couldn't find it so I just wrote this for now
+  // but I couldn't find it so I just wrote this for now”--reference
   var margins = graph.margin();
   var graphCentPts = [];
   
@@ -254,7 +254,12 @@ function addTooltip(clicked, clickedCenPts){
     // I'm pretty sure there is a better way to write this is Javascript
     for (var i=0; i<clicked.length; i++){
       for (var j=0; j<clickedCenPts[i].length; j++){
-        var text = d3.values(clicked[i])[j];
+        if (j==(clickedCenPts[i].length-1)){
+          var text = d3.values(clicked[i])[0];
+        }
+        else{
+          var text = d3.values(clicked[i])[j+1];
+        }
         // not clean at all!
         var x = clickedCenPts[i][j][0] - margins.left;
         var y = clickedCenPts[i][j][1] - margins.top;
@@ -315,7 +320,13 @@ function getClickedLines(mouseClick){
         clickedCenPts.push(graphCentPts[i]); // for tooltip
       }
   });
-  
+  //add graphcentPts in the beginning of each line 
+    for (var i=0; i<clicked.length; i++){
+      var x = clickedCenPts[i][0][0];
+        var y = clickedCenPts[i][0][1]-15;
+        clickedCenPts[i].push([x,y]);
+  };
+
   return [clicked, clickedCenPts]
 }
 
