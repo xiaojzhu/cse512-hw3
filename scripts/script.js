@@ -2,7 +2,7 @@ var graph;
 var dataset;
 
 d3.csv('Prestige2.csv', function(data) {
-  dataset = data.sort(function(row1, row2){return d3.ascending(row1.column2, row2.column2)});
+  dataset = data.sort(function(row1, row2){return d3.ascending(row1.name, row2.name)});
 
 
   graph = d3.parcoords()('#wrapper')
@@ -24,7 +24,7 @@ d3.csv('Prestige2.csv', function(data) {
 
   var grid = d3.divgrid();
   d3.select("#grid")
-      .datum(data.slice(0,10))
+      .datum(data) //.slice(0,10)) 
       .call(grid)
       .selectAll(".row")
       .on({
@@ -105,3 +105,19 @@ function zscore(col) {
 function callUpdate(data) {
          graph.data(data).brush().render().updateAxes();       
 }
+
+
+//for lengend of occupation types
+  $(function() {
+    var types =
+      ["Professional","Blue Collar","White Collar"];
+    var Typecolors = {
+      "Professional" : '#1b9e77',
+      "Blue Collar" : '#1f77b4',
+      "White Collar" : '#ff9896'}
+       _(types).each(function(group) {
+      $('#legend').append("<div class='item'><div class='color' style='background: " + Typecolors[group] + "';></div><div class='key'>" + group + "</div></div>");
+       });
+  });
+
+
