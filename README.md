@@ -32,7 +32,7 @@ If you put your work online, please also write a [one-line description and add a
 
 ## Story Board
 
-Please see our storyboard in [this pdf file]().
+Please see our storyboard in [this pdf file](cse512-a3-storyboard.pdf).
 
 
 ### Changes between Storyboard and the Final Implementation
@@ -48,9 +48,9 @@ A paragraph explaining changes between the storyboard and the final implementati
   - Roughly how much time did you spend developing your application?
   - What aspects took the most time? -->
 
-1. Xiaojing initially focused on the parallel coordinates part, Rachel focused on the data table part and the aesthetic settings. 
+* Xiaojing initially focused on the parallel coordinates part, Rachel focused on the data table part and the aesthetic settings. 
 
-2. Tasks and hours spent:
+* Tasks and hours spent:
    * dataset selection and storyboard: 7 hours
    * make the parallel coordiantes prototype work: 6 hours
    * click a label to color data based on axis values: 3 hours
@@ -62,15 +62,15 @@ A paragraph explaining changes between the storyboard and the final implementati
    * scrolling in grid:
    * layout, legend, titles and other polishing work: 
 
-3. What aspects took the most time.
-<!-- - text box of occupation name in paral. coord.
-- reorder axes
+3. What aspects took the most time. - text box of occupation name in paral. coord.
+
+<!-- - reorder axes
 - coloring of spaghetti lines: lumens by value selected, color by type
 - click legend to filter type
 - remove or keep the three buttons keep, exclude, reset
-- add unit to axes -->
-<!-- 
-* Functionality by Members: 
+- add unit to axes
+
+ Functionality by Members: 
 - Xiaojing:
   - legend of type 
 	- scrolling in grid
