@@ -62,9 +62,11 @@ A paragraph explaining changes between the storyboard and the final implementati
    * scrolling in grid:
    * layout, legend, titles and other polishing work: 
 
-3. What aspects took the most time. - text box of occupation name in paral. coord.
+* What aspects took the most time. 
 
-<!-- - reorder axes
+<!-- 
+- text box of occupation name in paral. coord.
+- reorder axes
 - coloring of spaghetti lines: lumens by value selected, color by type
 - click legend to filter type
 - remove or keep the three buttons keep, exclude, reset
