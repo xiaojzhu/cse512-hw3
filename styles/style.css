@@ -43,14 +43,16 @@
   font-family: 'Montserrat', sans-serif;
   font-size: 13px;
   height: 50px;
-  width: 200%;
+  width: 100%;
   margin: 0 auto;
   background: #d9d9d9;
 }
 
-#legend { 
+#nextline { 
   float: left;
   clear: left;
+  padding-top: 20px;
+  padding-left: 50px;
   margin: 0 200px 0 12px;
   font-size: 11px;
   line-height: 1.6em;
@@ -118,8 +120,8 @@ footer {
       position: relative;
       float:right;
       z-index:-999;
-      left: 380px;
-      width: 400px;
+      left: 240px;
+      width: 300px;
       }
 
 button {
@@ -154,6 +156,6 @@ button:hover {
 .col-0 { width: 280px; }
 
 #type {
-  padding-left: 15px;
-  border-left: 2px solid #00f28f;
+  padding-left: 10px;
+  font-size: 15px;
 }
