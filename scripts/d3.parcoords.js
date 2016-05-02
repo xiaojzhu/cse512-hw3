@@ -360,7 +360,6 @@ pc.brushable = function() {
   return this;
 };
 
-// Jason Davies, http://bl.ocks.org/1341281
 pc.reorderable = function() {
   if (!g) pc.createAxes();
 
@@ -413,7 +412,6 @@ pc.ctx = ctx;
 pc.canvas = canvas;
 pc.g = function() { return g; };
 
-// TODO
 pc.brushReset = function(dimension) {
   yscale[dimension].brush.clear()(
     pc.g()
@@ -425,7 +423,6 @@ pc.brushReset = function(dimension) {
 };
 
 // rescale for height, width and margins
-// TODO currently assumes chart is brushable, and destroys old brushes
 pc.resize = function() {
   // selection size
   pc.selection.select("svg")
@@ -503,9 +500,6 @@ function position(d) {
   
   pc.version = "0.1.7";
 
-
-  //add new functions
-
 function compute_cluster_centroids(d) {
 
 var clusterCentroids = d3.map();
@@ -557,14 +551,8 @@ for (var i = 0; i < cols; ++i) {
   if (i < cols - 1) {
     var cx = x + a * (position(p[i+1]) - x);
     var cy = y + a * (yscale[p[i+1]](row[p[i+1]]) - y);
-/*    if (__.bundleDimension !== null) {
-      var leftCentroid = __.clusterCentroids.get(yscale[__.bundleDimension](row[__.bundleDimension])).get(p[i]);
-      var rightCentroid = __.clusterCentroids.get(yscale[__.bundleDimension](row[__.bundleDimension])).get(p[i+1]);
-      var centroid = 0.5 * (leftCentroid + rightCentroid);
-      cy = centroid + (1 - __.bundlingStrength) * (cy - centroid);
-    }*/
+
     centroids.push([cx, cy]);
-    //centroids.push($V([cx, cy]));
   }
 }
 

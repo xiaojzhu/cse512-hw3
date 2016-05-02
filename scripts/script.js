@@ -1,13 +1,12 @@
 var graph;
 var dataset;
 var color_set = d3.scale.linear()
-  .range(["#3182bd", "#f33"]);
+                        .range(["#3182bd", "#f33"]);
 var color_set2 = d3.scale.ordinal()
-  .range(['#1b9e77','#1f77b4', '#ff9896']);
+                         .range(['#1b9e77','#1f77b4', '#ff9896']);
 
 d3.csv('Prestige2.csv', function(data) {
   dataset = data.sort(function(row1, row2){return d3.ascending(row1.occupation, row2.occupation)});
-
 
   graph = d3.parcoords()('#wrapper')
             .data(data)
@@ -18,44 +17,21 @@ d3.csv('Prestige2.csv', function(data) {
             .interactive()
             .brushable()
             .reorderable()
-            
-// add instruction text
- /*  var instructions = "-Drag around axis to begin brush. -Click axis to clear brush. -Click a label to color data based on axis values. -Hover on each line to highlight."
-  change_color("weight (lb)");
 
-  d3.select("#wrapper svg").append("text")
-  .text(instructions)
-  .attr("text-anchor", "middle")
-  .attr("text-decoration", "overline")
-  .attr("transform", "translate(" + graph.width()/2 + "," + (graph.height()-5) + ")");;*/
-
-
-// set the initial coloring based on the 6rd column "type"
-// update_colors(d3.keys(data[0])[5]);
-// update_colors("type");
-
- // click label to activate coloring
-
-
-
-//add hover event
-d3.select("#wrapper svg")
-  .on("mousemove", function() {
+  //add hover event
+  d3.select("#wrapper svg")
+    .on("mousemove", function() {
       var mousePosition = d3.mouse(this);         
-      highlightLineOnClick(mousePosition, true); //true will also add tooltip
-  })
-  .on("mouseout", function(){
-    cleanTooltip();
-    graph.unhighlight();
-  });
+      highlightLineOnClick(mousePosition, true); 
+    })
+    .on("mouseout", function(){
+      cleanTooltip();
+      graph.unhighlight();
+    });
 
-/*  graph.svg
-       .selectAll(".dimension")
-       .on("click", change_color);
-*/
   var grid = d3.divgrid();
   d3.select("#grid")
-      .datum(data) //.slice(0,10)) 
+      .datum(data)
       .call(grid)
       .selectAll(".row")
       .on({
@@ -74,24 +50,23 @@ d3.select("#wrapper svg")
       });
   });
 
-    d3.select("#searchbar")
-      .on("change", function(){
-        if(this.value == ""){
-          d3.select("#grid")
+  d3.select("#searchbar")
+    .on("change", function(){
+      if(this.value == ""){
+        d3.select("#grid")
           .datum(data)
           .call(grid)
           .selectAll(".row")
           .on({
           "mouseover": function(d) { graph.highlight([d]) },
           "mouseout": graph.unhighlight
-        }); 
-        }else{
-           var searchToken = this.value
-           var new_data2 = data.filter(function(row){
-              //console.log(row.occupation, searchToken, row.occupation.startsWith(searchToken));
-              return row.occupation.startsWith(searchToken);
-            });
-          d3.select("#grid")
+          }); 
+      }else{
+        var searchToken = this.value.toLowerCase();
+        var new_data2 = data.filter(function(row){
+          return row.occupation.startsWith(searchToken);
+        });
+        d3.select("#grid")
           .datum(new_data2)//data.slice(0,5))
           .call(grid)
           .selectAll(".row")
@@ -100,124 +75,27 @@ d3.select("#wrapper svg")
             "mouseout": graph.unhighlight
           }); 
       }
-      });
+    });
 
   graph.svg.selectAll(".dimension")
     .on("click", update_colors)
     .selectAll(".label")
       .style("font-size", "14px"); // change font sizes of selected lable
-
 });
 
-  function searchDisplay(){
-    var display = document.getElementById("display");
-    var search = document.getElementById("searchbar");
-    if(search.value == ""){
-      display.innerHTML = "Press ENTER key to search. Search empty string to reset data grid.";
-    }else{
-      display.innerHTML = "Prefix search: \"" + search.value + "\". Search empty string to reset data grid.";
-    }
-
-    // d3.select("#grid")
-    //   .datum(d.slice(0,5))
-    //   .call(grid)
-    //   .selectAll(".row")
-    //   .on({
-    //     "mouseover": function(d) { graph.highlight([d]) },
-    //     "mouseout": graph.unhighlight
-    //   }); 
-  }  
-
-  // d3.select("#searchbar")
-  //     .on("change", function(){
-  //       d3.select("#grid")
-  //       .datum(d.slice(0,5))
-  //       .call(grid)
-  //       .selectAll(".row")
-  //       .on({
-  //         "mouseover": function(d) { graph.highlight([d]) },
-  //         "mouseout": graph.unhighlight
-  //       }); 
-  //     });
-
-
-
-
-   // Remove all but selected from the dataset
-  d3.select("#keep-data")
-    .on("click", function() {
-      new_data = graph.brushed();
-      if (new_data.length == 0) {
-        alert("Please do not select all the data when keeping/excluding");
-        return false;
-      }
-      callUpdate(new_data);
-    });
-
-  // Exclude selected from the dataset
-  d3.select("#exclude-data")
-    .on("click", function() {
-      new_data = _.difference(dataset, graph.brushed());
-      if (new_data.length == 0) {
-        alert("Please do not select all the data when keeping/excluding");
-        return false;
-      }
-      callUpdate(new_data);
-    });
-    
-  
-  d3.select("#reset-data")
-     .on("click", function() {
-           callUpdate(dataset);
-     });
-  
-
-/*var color_scale = d3.scale.linear()
-                    .domain([-2,-0.5,0.5,2])
-                    .range(["#DE5E60", "steelblue", "steelblue", "#98df8a"])
-                    .interpolate(d3.interpolateLab);*/
-
-/*function change_color(dimension) {
-  graph.svg.selectAll(".dimension")
-    .style("font-weight", "normal")
-    .filter(function(d) { return d == dimension; })
-    .style("font-weight", "bold")
-
-  graph.color(zcolor(graph.data(),dimension)).render()
-}
-
-function zcolor(col, dimension) {
-  var z = zscore(_(col).pluck(dimension).map(parseFloat));
-  return function(d) { return color_scale(z(d[dimension]))}
-};
-
-function zscore(col) {
-  var n = col.length,
-  mean = _(col).mean(),
-  sigma = _(col).stdDeviation();
-
-  return function(d) {
-    return (d-mean)/sigma;
-  }; 
-};*/
+function searchDisplay(){
+  var display = document.getElementById("display");
+  var search = document.getElementById("searchbar");
+  if(search.value == ""){
+    display.innerHTML = "Press ENTER key to search. Search empty string to reset data grid.";
+  }else{
+    display.innerHTML = "Prefix search: \"" + search.value + "\". Search empty string to reset data grid.";
+  }
+}  
 
 function callUpdate(data) {
-         graph.data(data).brush().render().updateAxes();       
+  graph.data(data).brush().render().updateAxes();       
 }
-
-
-//for lengend of occupation types
-  $(function() {
-    var types =
-      ["Professional","Blue Collar","White Collar"];
-    var Typecolors = {
-      "Professional" : '#1b9e77',
-      "Blue Collar" : '#1f77b4',
-      "White Collar" : '#ff9896'}
-       _(types).each(function(group) {
-      $('#legend').append("<div class='item'><div class='color' style='background: " + Typecolors[group] + "';></div><div class='key'>" + group + "</div></div>");
-       });
-  });
 
 //function defination for added features in parcood 
 // update color and font weight of chart based on axis selection
@@ -242,60 +120,10 @@ function update_colors(dimension) {
       // change colors for each line
     graph.color(function(d){return color_set([d[dimension]])}).render();
   }
-
-  var new_data3 =  dataset.sort(function(row1, row2){return d3.ascending(parseFloat(row1.prestige), parseFloat(row2.prestige))});
-  console.log(new_data3);
-  d3.select("#grid")
-          .datum(dataset.slice(0,5))
-          .call(grid)
-          .selectAll(".row")
-          .on({
-            "mouseover": function(d) { graph.highlight([d]) },
-            "mouseout": graph.unhighlight
-          }); 
-
-  switch (dimension) {
-    case "education (year)":
-      console.log(dataset[0]);
-      break;
-    case "income (dollar)":
-      console.log(2);
-      break;
-    case "women (%)":
-      console.log(3);
-      break;
-    case "prestige":
-      console.log(4);
-      var new_data3 =  dataset.sort(function(row1, row2){return d3.ascending(parseFloat(row1.prestige), parseFloat(row2.prestige))});
-      console.log(new_data3);
-      d3.select("#grid")
-          .datum(data.slice(0,4))
-          .call(grid)
-          .selectAll(".row")
-          .on({
-            "mouseover": function(new_data3) { graph.highlight([new_data3]) },
-            "mouseout": graph.unhighlight
-          }); 
-      d3.select("#grid")
-          .datum(d.slice(0,5))
-          .call(grid)
-          .selectAll(".row")
-          .on({
-            "mouseover": function(d) { graph.highlight([d]) },
-            "mouseout": graph.unhighlight
-          }); 
-      break;
-    default:
-      console.log("default");
-  }
 };    
 
 // Add highlight for every line on click
 function getCentroids(data){
-  // “this function returns centroid points for data. I had to change the source
-  // for parallelcoordinates and make compute_centroids public.
-  // I assume this should be already somewhere in graph and I don't need to recalculate it
-  // but I couldn't find it so I just wrote this for now”--reference
   var margins = graph.margin();
   var graphCentPts = [];
   
@@ -315,7 +143,6 @@ function getCentroids(data){
 }
 
 function getActiveData(){
-  // I'm pretty sure this data is already somewhere in graph
   if (graph.brushed()!=false) return graph.brushed();
   return graph.data();
 }
@@ -332,7 +159,6 @@ function isOnLine(startPt, endPt, testPt, tol){
   var Dx = x2 - x1;
   var Dy = y2 - y1;
   var delta = Math.abs(Dy*x0 - Dx*y0 - x1*y2+x2*y1)/Math.sqrt(Math.pow(Dx, 2) + Math.pow(Dy, 2)); 
-  //console.log(delta);
   if (delta <= tol) return true;
   return false;
 }
@@ -355,17 +181,14 @@ function findAxes(testPt, cenPts){
 function cleanTooltip(){
   // removes any object under #tooltip is
   graph.svg.selectAll("#tooltip")
-      .remove();
+           .remove();
 }
 
 function addTooltip(clicked, clickedCenPts){
-  
   // sdd tooltip to multiple clicked lines
     var clickedDataSet = [];
     var margins = graph.margin()
 
-    // get all the values into a single list
-    // I'm pretty sure there is a better way to write this is Javascript
     for (var i=0; i<clicked.length; i++){
       for (var j=0; j<clickedCenPts[i].length; j++){
         if (j==(clickedCenPts[i].length-1)){
@@ -446,19 +269,17 @@ function getClickedLines(mouseClick){
 
 
 function highlightLineOnClick(mouseClick, drawTooltip){
-  
   var clicked = [];
-    var clickedCenPts = [];
+  var clickedCenPts = [];
   
   clickedData = getClickedLines(mouseClick);
 
   if (clickedData && clickedData[0].length!=0){
-
     clicked = clickedData[0];
-      clickedCenPts = clickedData[1];
+    clickedCenPts = clickedData[1];
 
-      // highlight clicked line
-      graph.highlight(clicked);
+    // highlight clicked line
+    graph.highlight(clicked);
     
     if (drawTooltip){
       // clean if anything is there
@@ -466,7 +287,6 @@ function highlightLineOnClick(mouseClick, drawTooltip){
         // add tooltip
         addTooltip(clicked, clickedCenPts);
     }
-
   }
 };
 
