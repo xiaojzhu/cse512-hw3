@@ -6,7 +6,7 @@ var color_set2 = d3.scale.ordinal()
   .range(['#1b9e77','#1f77b4', '#ff9896']);
 
 d3.csv('Prestige2.csv', function(data) {
-  dataset = data.sort(function(row1, row2){return d3.ascending(row1.name, row2.name)});
+  dataset = data.sort(function(row1, row2){return d3.ascending(row1.occupation, row2.occupation)});
 
 
   graph = d3.parcoords()('#wrapper')
@@ -63,22 +63,80 @@ d3.select("#wrapper svg")
       .on({
         "mouseover": function(d) { graph.highlight([d]) },
         "mouseout": graph.unhighlight
-      });
-
+      });  
 
   graph.on("brush", function(d) {
     d3.select("#grid")
-      .datum(d /*.slice(0,10)*/)
+      .datum(d)
       .call(grid)
+      // .filter(function(d) {return d.})
       .selectAll(".row")
       .on({
         "mouseover": function(d) { graph.highlight([d])},
         "mouseout": graph.unhighlight
       });
   });
+
+    d3.select("#searchbar")
+      .on("change", function(){
+        if(this.value == ""){
+          d3.select("#grid")
+          .datum(data)
+          .call(grid)
+          .selectAll(".row")
+          .on({
+          "mouseover": function(d) { graph.highlight([d]) },
+          "mouseout": graph.unhighlight
+        }); 
+        }else{
+           var searchToken = this.value
+           var new_data2 = data.filter(function(row){
+              //console.log(row.occupation, searchToken, row.occupation.startsWith(searchToken));
+              return row.occupation.startsWith(searchToken);
+            });
+          d3.select("#grid")
+          .datum(new_data2)//data.slice(0,5))
+          .call(grid)
+          .selectAll(".row")
+          .on({
+            "mouseover": function(d) { graph.highlight([d]) },
+            "mouseout": graph.unhighlight
+          }); 
+      }
+      });
+
 });
 
+  function searchDisplay(){
+    var display = document.getElementById("display");
+    var search = document.getElementById("searchbar");
+    if(search.value == ""){
+      display.innerHTML = "Press ENTER key to search. Search empty string to reset data grid.";
+    }else{
+      display.innerHTML = "Prefix search: \"" + search.value + "\". Search empty string to reset data grid.";
+    }
 
+    // d3.select("#grid")
+    //   .datum(d.slice(0,5))
+    //   .call(grid)
+    //   .selectAll(".row")
+    //   .on({
+    //     "mouseover": function(d) { graph.highlight([d]) },
+    //     "mouseout": graph.unhighlight
+    //   }); 
+  }  
+
+  // d3.select("#searchbar")
+  //     .on("change", function(){
+  //       d3.select("#grid")
+  //       .datum(d.slice(0,5))
+  //       .call(grid)
+  //       .selectAll(".row")
+  //       .on({
+  //         "mouseover": function(d) { graph.highlight([d]) },
+  //         "mouseout": graph.unhighlight
+  //       }); 
+  //     });
 
 
 
@@ -365,3 +423,4 @@ function highlightLineOnClick(mouseClick, drawTooltip){
 
   }
 };
+
