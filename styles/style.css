@@ -159,3 +159,24 @@ button:hover {
   padding-left: 10px;
   font-size: 15px;
 }
+
+#searchbar {
+    background: #f0f0f0;
+
+    border: none;
+    border-left: 2px solid #fff;
+
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    padding: 5px;
+    width: 1000px;
+
+    transition: background 1s, border-left 1s;
+}
+
+#searchbar:focus {
+    background: #fff;
+    border-left: 2px solid #000;
+    box-shadow: none;
+    outline: none;
+}
