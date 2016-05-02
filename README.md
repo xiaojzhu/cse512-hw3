@@ -65,7 +65,7 @@ Finally, we added text instructions on the right side of parallel coordinates to
    * sorting: 4 hours+ (failed) 
    * layout, legend, titles and other polishing work in CSS: 5 hours
 
-* What aspects took the most time. 
+* Setting up the development environment took a lot of time because we didn't know how to phrase our questions for search. Development took the most amount of time. 
 
 <!-- 
 - text box of occupation name in paral. coord.
