@@ -6,7 +6,7 @@ var color_set2 = d3.scale.ordinal()
   .range(['#1b9e77','#1f77b4', '#ff9896']);
 
 d3.csv('Prestige2.csv', function(data) {
-  dataset = data.sort(function(row1, row2){return d3.ascending(row1.name, row2.name)});
+  dataset = data.sort(function(row1, row2){return d3.ascending(row1.occupation, row2.occupation)});
 
 
   graph = d3.parcoords()('#wrapper')
@@ -76,7 +76,14 @@ d3.select("#wrapper svg")
         "mouseout": graph.unhighlight
       });
   });
+  input.on("type", function(d) {
+    d3.select("#grid")
+      .datum(d)
+      .call(grid)
+      .select
+  });
 });
+  
 
 
 
@@ -365,3 +372,4 @@ function highlightLineOnClick(mouseClick, drawTooltip){
 
   }
 };
+
