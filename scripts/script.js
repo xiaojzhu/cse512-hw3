@@ -31,14 +31,12 @@ d3.csv('Prestige2.csv', function(data) {
 
 
 // set the initial coloring based on the 6rd column "type"
-update_colors(d3.keys(data[0])[5]);
-update_colors("type");
+// update_colors(d3.keys(data[0])[5]);
+// update_colors("type");
 
  // click label to activate coloring
-graph.svg.selectAll(".dimension")
-    .on("click", update_colors)
-    .selectAll(".label")
-      .style("font-size", "14px"); // change font sizes of selected lable
+
+
 
 //add hover event
 d3.select("#wrapper svg")
@@ -69,7 +67,6 @@ d3.select("#wrapper svg")
     d3.select("#grid")
       .datum(d)
       .call(grid)
-      // .filter(function(d) {return d.})
       .selectAll(".row")
       .on({
         "mouseover": function(d) { graph.highlight([d])},
@@ -104,6 +101,11 @@ d3.select("#wrapper svg")
           }); 
       }
       });
+
+  graph.svg.selectAll(".dimension")
+    .on("click", update_colors)
+    .selectAll(".label")
+      .style("font-size", "14px"); // change font sizes of selected lable
 
 });
 
@@ -240,9 +242,53 @@ function update_colors(dimension) {
       // change colors for each line
     graph.color(function(d){return color_set([d[dimension]])}).render();
   }
+
+  var new_data3 =  dataset.sort(function(row1, row2){return d3.ascending(parseFloat(row1.prestige), parseFloat(row2.prestige))});
+  console.log(new_data3);
+  d3.select("#grid")
+          .datum(dataset.slice(0,5))
+          .call(grid)
+          .selectAll(".row")
+          .on({
+            "mouseover": function(d) { graph.highlight([d]) },
+            "mouseout": graph.unhighlight
+          }); 
+
+  switch (dimension) {
+    case "education (year)":
+      console.log(dataset[0]);
+      break;
+    case "income (dollar)":
+      console.log(2);
+      break;
+    case "women (%)":
+      console.log(3);
+      break;
+    case "prestige":
+      console.log(4);
+      var new_data3 =  dataset.sort(function(row1, row2){return d3.ascending(parseFloat(row1.prestige), parseFloat(row2.prestige))});
+      console.log(new_data3);
+      d3.select("#grid")
+          .datum(data.slice(0,4))
+          .call(grid)
+          .selectAll(".row")
+          .on({
+            "mouseover": function(new_data3) { graph.highlight([new_data3]) },
+            "mouseout": graph.unhighlight
+          }); 
+      d3.select("#grid")
+          .datum(d.slice(0,5))
+          .call(grid)
+          .selectAll(".row")
+          .on({
+            "mouseover": function(d) { graph.highlight([d]) },
+            "mouseout": graph.unhighlight
+          }); 
+      break;
+    default:
+      console.log("default");
+  }
 };    
-
-
 
 // Add highlight for every line on click
 function getCentroids(data){

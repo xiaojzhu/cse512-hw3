@@ -16,29 +16,30 @@
   <body>
 
     <div id="head">
-       <h1>Prestige of Canadian Occupations in 1971</h1>
+       <h1>Prestige of Canadian Occupations</h1>
     </div>
 
     <div id="wrapper" class="parcoords" style="width:80%;height:340px">
       <div id="desc">
         <ul>
-          <li>Drag around axis to begin brush</li>
-          <li>Click axis to clear brush</li>
-          <li>Click a label to color data based on axis values</li>
-          <li>Hover on each line to highlight and show tooltip</li>
+          <li>Drag along axis to brush</li>
+          <li>Click anywhere else on the axis to clear brush</li>
+          <li>Click a label to color data based on label values</li>
+          <li>Hover on each line to highlight and show more details </li>
+          <li>Hover on data row to highlight corresponding line </li>
         </ul>
       </div>
     </div>
 
 
-    <div id="nextline" align="left">
+<!--     <div id="nextline" align="left">
       <p id="type">Occupation Type</p>
-      <div id="legend"></div>
-      <div class="col-xs-12 col-md-12">
+      <div id="legend"></div> -->
+      <div id= "search" class="col-xs-12 col-md-12">
         <input id="searchbar" type="text" onchange = "searchDisplay()" placeholder="name an occupation">
         <p id="display">Press ENTER key to search. Search empty string to reset data grid.</p>
       </div>
-    </div>
+<!--     </div> -->
     
     <div id="grid"></div>
 
